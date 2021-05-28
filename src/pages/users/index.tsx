@@ -26,6 +26,7 @@ export default function UserList() {
     base: false,
     lg: true,
   });
+
   return (
     <Box>
       <Header />
