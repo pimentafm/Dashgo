@@ -16,6 +16,8 @@ export default function SignIn() {
     console.log(values);
   };
 
+  const { errors } = formState;
+
   return (
     <Flex w="100vw" h="100vh" align="center" justify="center">
       <Flex
@@ -33,13 +35,15 @@ export default function SignIn() {
             name="email"
             type="email"
             label="e-mail"
-            {...register("e-mail")}
+            error={errors.email}
+            {...register("email", { required: "e-mail obrigatório" })}
           ></Input>
           <Input
             name="password"
             type="password"
             label="Senha"
-            {...register("email")}
+            error={errors.password}
+            {...register("password", { required: "Senha obrigatória" })}
           ></Input>
         </Stack>
 
@@ -48,6 +52,7 @@ export default function SignIn() {
           mt="6"
           colorScheme="pink"
           size="lg"
+          error={errors.password}
           isLoading={formState.isSubmitting}
         >
           Entrar
