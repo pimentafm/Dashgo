@@ -6,14 +6,18 @@ import { NotificationsNav } from "./NotificationsNav";
 import { Profile } from "./Profile";
 import { useSidebarDrawer } from "../../contexts/SidebarDrawerContext";
 import { RiMenuLine } from "react-icons/ri";
+import { useRef } from "react";
 
 export function Header() {
   const { onOpen } = useSidebarDrawer();
+
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
   });
+
   return (
     <Flex
       as="header"
@@ -33,6 +37,9 @@ export function Header() {
           variant="unstyled"
           onClick={onOpen}
           mr="2"
+          placeholder="Buscar na plataforma"
+          _placeholder={{ color: "gray.400" }}
+          ref={searchInputRef}
         />
       )}
 
