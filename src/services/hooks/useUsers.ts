@@ -23,7 +23,6 @@ export async function getUsers(page: number): Promise<GetUsersResponse> {
   const totalCount = Number(headers["x-total-count"]);
 
   const users = data.users.map((user: User) => {
-    console.log(user.createdAt);
     return {
       id: user.id,
       name: user.name,
@@ -42,9 +41,20 @@ export async function getUsers(page: number): Promise<GetUsersResponse> {
   };
 }
 
-export function useUsers(page: number, options: UseQueryOptions) {
+// With SSR
+// export function useUsers(page: number, options: UseQueryOptions) {
+//   return useQuery(["users", page], () => getUsers(page), {
+//     staleTime: 1000 * 5,
+//     ...options,
+//   });
+// }
+
+export function useUsers(
+  page: number,
+  options?: UseQueryOptions<GetUsersResponse>
+) {
   return useQuery(["users", page], () => getUsers(page), {
-    staleTime: 1000 * 5,
+    staleTime: 1000 * 60 * 10, // 10 minutes,
     ...options,
   });
 }
